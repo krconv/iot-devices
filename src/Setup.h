@@ -1,0 +1,136 @@
+#pragma once
+
+#include <Arduino.h>
+
+// possible devices
+#define DEVICE__TEST_SWITCH 0x101
+#define DEVICE__LIVING_ROOM_OUTLETS 0x102
+#define DEVICE__OFFICE_LIGHT 0x103
+#define DEVICE__BEDROOM_HALLWAY_LIGHT 0x104
+#define DEVICE__PANTRY_LIGHT 0x105
+
+#define DEVICE__GARAGE_DOOR 0x201
+
+// set the default device for developmeent
+#define DEVICE DEVICE__TEST_SWITCH
+
+// use the build flags to choose the device
+#ifdef BUILD__TEST_SWITCH
+#define DEVICE DEVICE__TEST_SWITCH
+#endif
+
+#ifdef BUILD__LIVING_ROOM_OUTLETS
+#define DEVICE DEVICE__LIVING_ROOM_OUTLETS
+#endif
+
+#ifdef BUILD__OFFICE_LIGHT
+#define DEVICE DEVICE__OFFICE_LIGHT
+#endif
+
+#ifdef BUILD__BEDROOM_HALLWAY_LIGHT
+#define DEVICE DEVICE__BEDROOM_HALLWAY_LIGHT
+#endif
+
+#ifdef BUILD__PANTRY_LIGHT
+#define DEVICE DEVICE__PANTRY_LIGHT
+#endif
+
+#ifdef BUILD__GARAGE_DOOR
+#define DEVICE DEVICE__GARAGE_DOOR
+#endif
+
+// the pin/IO setup
+#define PIN_LAYOUT__TREATLIFE_SS01S 1
+#define PIN_LAYOUT__GARAGE_DOOR 2
+
+// the class of device
+#define DEVICE_CLASS__LIGHT_SWITCH 1
+#define DEVICE_CLASS__GARAGE_DOOR 2
+
+// device specific setup
+#if DEVICE == DEVICE__TEST_SWITCH
+
+#define PIN_LAYOUT PIN_LAYOUT__TREATLIFE_SS01S
+#define DEVICE_CLASS DEVICE_CLASS__LIGHT_SWITCH
+#define DEVICE_NAME "test-switch"
+
+#elif DEVICE == DEVICE__LIVING_ROOM_OUTLETS
+
+#define PIN_LAYOUT PIN_LAYOUT__TREATLIFE_SS01S
+#define DEVICE_CLASS DEVICE_CLASS__LIGHT_SWITCH
+#define DEVICE_NAME "living-room-outlets"
+#define BUTTON_NAME "living-room-fan"
+
+#elif DEVICE == DEVICE__OFFICE_LIGHT
+
+#define PIN_LAYOUT PIN_LAYOUT__TREATLIFE_SS01S
+#define DEVICE_CLASS DEVICE_CLASS__LIGHT_SWITCH
+#define DEVICE_NAME "office-light"
+#define MQTT_SHORT_NAME "office"
+#define SWITCH_NAME "office"
+
+#elif DEVICE == DEVICE__BEDROOM_HALLWAY_LIGHT
+
+#define PIN_LAYOUT PIN_LAYOUT__TREATLIFE_SS01S
+#define DEVICE_CLASS DEVICE_CLASS__LIGHT_SWITCH
+#define DEVICE_NAME "bedroom-hallway-light"
+#define MQTT_SHORT_NAME "bedroom-hallway"
+#define SWITCH_NAME "bedroom-hallway"
+
+#elif DEVICE == DEVICE__PANTRY_LIGHT
+
+#define PIN_LAYOUT PIN_LAYOUT__TREATLIFE_SS01S
+#define DEVICE_CLASS DEVICE_CLASS__LIGHT_SWITCH
+#define DEVICE_NAME "pantry-light"
+#define MQTT_SHORT_NAME "pantry"
+#define SWITCH_NAME "pantry"
+
+#elif DEVICE == DEVICE__GARAGE_DOOR
+
+#define PIN_LAYOUT PIN_LAYOUT__GARAGE_DOOR
+#define DEVICE_CLASS DEVICE_CLASS__GARAGE_DOOR
+#define DEVICE_NAME "garage-door"
+
+#endif
+
+// define the pins
+#if PIN_LAYOUT == PIN_LAYOUT__TREATLIFE_SS01S
+
+#define PIN_RELAY 12
+#define VOLTAGE_RELAY_ON HIGH
+#define VOLTAGE_RELAY_OFF LOW
+
+#define PIN_BUTTON 13
+#define VOLTAGE_BUTTON_PRESSED LOW
+#define VOLTAGE_BUTTON_NOT_PRESSED HIGH
+
+#define PIN_WHITE_STATUS_LED 4
+#define PIN_RED_STATUS_LED 5
+#define VOLTAGE_STATUS_LED_ON 0
+#define VOLTAGE_STATUS_LED_DIM 900
+#define VOLTAGE_STATUS_LED_OFF 1023
+
+#endif
+
+#ifndef MQTT_SHORT_NAME
+#define MQTT_SHORT_NAME DEVICE_NAME
+#endif
+
+// configuration for the common types
+#if DEVICE_CLASS == DEVICE_CLASS__LIGHT_SWITCH
+
+#define MQTT_DOMAIN "light"
+
+#ifndef SWITCH_NAME
+#define SWITCH_NAME DEVICE_NAME
+#endif
+
+#ifndef BUTTON_NAME
+#define BUTTON_NAME SWITCH_NAME
+#endif
+
+#elif DEVICE_CLASS == DEVICE_CLASS__GARAGE_DOOR
+
+#define MQTT_DOMAIN "garage-door"
+
+#endif
