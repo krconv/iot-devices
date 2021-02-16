@@ -12,87 +12,87 @@ namespace LightSwitch
 
   namespace Configuration
   {
-    static pin_t getButtonPin()
+    inline static pin_t getButtonPin()
     {
       return PIN_BUTTON;
     }
 
-    constexpr static voltage_t getButtonVoltageNotPressed()
+    constexpr inline static voltage_t getButtonVoltageNotPressed()
     {
       return VOLTAGE_BUTTON_NOT_PRESSED;
     }
 
-    constexpr static voltage_t getButtonVoltagePressed()
+    constexpr inline static voltage_t getButtonVoltagePressed()
     {
       return VOLTAGE_BUTTON_PRESSED;
     }
 
-    static pin_t getRelayPin()
+    inline static pin_t getRelayPin()
     {
       return PIN_RELAY;
     }
 
-    constexpr static voltage_t getRelayVoltageOn()
+    constexpr inline static voltage_t getRelayVoltageOn()
     {
       return VOLTAGE_RELAY_ON;
     }
 
-    constexpr static voltage_t getRelayVoltageOff()
+    constexpr inline static voltage_t getRelayVoltageOff()
     {
       return VOLTAGE_RELAY_OFF;
     }
 
-    static pin_t getWhiteStatusLedPin()
+    inline static pin_t getWhiteStatusLedPin()
     {
       return PIN_WHITE_STATUS_LED;
     }
 
-    static pin_t getRedStatusLedPin()
+    inline static pin_t getRedStatusLedPin()
     {
       return PIN_RED_STATUS_LED;
     }
 
-    constexpr static analog_voltage_t getStatusLedVoltageOn()
+    constexpr inline static analog_voltage_t getStatusLedVoltageOn()
     {
       return VOLTAGE_STATUS_LED_ON;
     }
 
-    constexpr static analog_voltage_t getStatusLedVoltageDim()
+    constexpr inline static analog_voltage_t getStatusLedVoltageDim()
     {
       return VOLTAGE_STATUS_LED_DIM;
     }
 
-    constexpr static analog_voltage_t getStatusLedVoltageOff()
+    constexpr inline static analog_voltage_t getStatusLedVoltageOff()
     {
       return VOLTAGE_STATUS_LED_OFF;
     }
 
-    static std::string getMqttTopicButtonSetState()
+    inline static std::string getMqttTopicButtonSetState()
     {
       return MQTT_DOMAIN "/" BUTTON_NAME "/state/set";
     }
 
-    static std::string getMqttTopicButtonState()
+    inline static std::string getMqttTopicButtonState()
     {
       return MQTT_DOMAIN "/" BUTTON_NAME "/state";
     }
 
-    static std::string getMqttTopicSwitchSetState()
+    inline static std::string getMqttTopicSwitchSetState()
     {
       return MQTT_DOMAIN "/" SWITCH_NAME "/state/set";
     }
 
-    static std::string getMqttTopicSwitchState()
+    inline static std::string getMqttTopicSwitchState()
     {
       return MQTT_DOMAIN "/" SWITCH_NAME "/state";
     }
 
-    static std::string getMqttPayloadOn()
+    inline static std::string getMqttPayloadOn()
     {
       return "on";
     }
 
-    static std::string getMqttPayloadOff()
+    inline static std::string getMqttPayloadOff()
     {
       return "off";
     }

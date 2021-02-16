@@ -9,10 +9,9 @@
 #define DEVICE__BEDROOM_HALLWAY_LIGHT 0x104
 #define DEVICE__PANTRY_LIGHT 0x105
 
-#define DEVICE__GARAGE_DOOR 0x201
+#define DEVICE__OUTSIDE_DRIVEWAY_CAMERA 0x106
 
-// set the default device for developmeent
-#define DEVICE DEVICE__TEST_SWITCH
+#define DEVICE__GARAGE_DOOR 0x201
 
 // use the build flags to choose the device
 #ifdef BUILD__TEST_SWITCH
@@ -35,17 +34,28 @@
 #define DEVICE DEVICE__PANTRY_LIGHT
 #endif
 
+#ifdef BUILD__OUTSIDE_DRIVEWAY_CAMERA
+#define DEVICE DEVICE__OUTSIDE_DRIVEWAY_CAMERA
+#endif
+
 #ifdef BUILD__GARAGE_DOOR
 #define DEVICE DEVICE__GARAGE_DOOR
 #endif
 
+// set the default device for developmeent
+#ifndef DEVICE
+#define DEVICE DEVICE__TEST_SWITCH
+#endif
+
 // the pin/IO setup
 #define PIN_LAYOUT__TREATLIFE_SS01S 1
-#define PIN_LAYOUT__GARAGE_DOOR 2
+#define PIN_LAYOUT__ESP32_CAM 2
+#define PIN_LAYOUT__GARAGE_DOOR 3
 
 // the class of device
 #define DEVICE_CLASS__LIGHT_SWITCH 1
-#define DEVICE_CLASS__GARAGE_DOOR 2
+#define DEVICE_CLASS__CAMERA 2
+#define DEVICE_CLASS__GARAGE_DOOR 3
 
 // device specific setup
 #if DEVICE == DEVICE__TEST_SWITCH
@@ -84,6 +94,12 @@
 #define DEVICE_NAME "pantry-light"
 #define MQTT_SHORT_NAME "pantry"
 #define SWITCH_NAME "pantry"
+
+#elif DEVICE == DEVICE__OUTSIDE_DRIVEWAY_CAMERA
+
+#define PIN_LAYOUT PIN_LAYOUT__ESP32_CAMERA
+#define DEVICE_CLASS DEVICE_CLASS__CAMERA
+#define DEVICE_NAME "outside-driveway-camera"
 
 #elif DEVICE == DEVICE__GARAGE_DOOR
 
@@ -128,6 +144,10 @@
 #ifndef BUTTON_NAME
 #define BUTTON_NAME SWITCH_NAME
 #endif
+
+#elif DEVICE_CLASS == DEVICE_CLASS__CAMERA
+
+#define MQTT_DOMAIN "device"
 
 #elif DEVICE_CLASS == DEVICE_CLASS__GARAGE_DOOR
 

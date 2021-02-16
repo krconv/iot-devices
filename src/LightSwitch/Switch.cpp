@@ -32,6 +32,8 @@ namespace LightSwitch
         digitalWrite(Configuration::getRelayPin(), Configuration::getRelayVoltageOn());
         mqttClient.publish(Configuration::getMqttTopicSwitchState(), Configuration::getMqttPayloadOn());
         break;
+      case Switch::State::NONE:
+        break;
       }
       currentState = nextRequestedState;
       nextRequestedState = Switch::State::NONE;

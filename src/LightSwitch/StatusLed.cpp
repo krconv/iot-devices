@@ -1,6 +1,6 @@
-#include "StatusLed.h"
+#include <Arduino.h>
 
-#include "Configuration.h"
+#include "StatusLed.h"
 
 namespace LightSwitch
 {
@@ -27,8 +27,9 @@ namespace LightSwitch
       analogWrite(pin, voltageOff);
       break;
     case StatusLed::LedState::BLINKING:
-      bool isOn = (blinkStart - millis()) / 500 % 2;
-      analogWrite(pin, isOn ? voltageOn : voltageOff);
+      analogWrite(pin, (blinkStart - millis()) / 500 % 2 ? voltageOn : voltageOff);
+      break;
+    case StatusLed::LedState::NONE:
       break;
     }
   }

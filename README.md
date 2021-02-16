@@ -4,23 +4,26 @@ This code powers various IoT devices set up at my house, including light switche
 
 ## Setup
 
-I've used the [`arduino-cli`](https://arduino.github.io/arduino-cli/latest/) for getting things set up locally. With that installed, use these commands to install the required dependencies.
+This project uses [PlatformIO](https://docs.platformio.org/en/latest/what-is-platformio.html), which manages the various dependencies and build configurations.
 
-```sh
-arduino-cli lib install ArduinoOTA@1.0.5
-arduino-cli lib install PubSubClient@2.8.0
-```
+1.  [Install PlatformIO](https://docs.platformio.org/en/latest/core/installation.html)
 
 ## Building
 
-To compile the project directly, use this command.
+To compile the entire project directly, use this command.
 
 ```sh
-arduino-cli compile --fqbn esp8266:esp8266:generic .
+platformio run
 ```
 
-Or, use `make` to build and upload the project.
+Or, to compile the project for a specific configuration, use the `--environment` flag.
 
 ```sh
-make upload DEVICE=LIVING_ROOM_OUTLETS
+platformio run --environment office-light
+```
+
+To upload the project using Over-The-Air updates, use the `--target` flag.
+
+```sh
+platformio run --environment office-light --target upload
 ```

@@ -1,5 +1,4 @@
-#ifndef MQTT_CLIENT_H
-#define MQTT_CLIENT_H
+#pragma once
 
 #include <functional>
 #include <map>
@@ -35,13 +34,11 @@ private:
   void handleMessage(char *topic_c, byte *payload_c, unsigned int length);
 
 private:
-  PubSubClient client;
   WifiClient &wifiClient;
+  PubSubClient client;
   std::multimap<std::string, MessageHandler> subscriptions;
 
   int lastKnownStatus = MQTT_DISCONNECTED;
   millis_t lastReconnectAt = 0;
   static MqttClient *instance;
 };
-
-#endif
